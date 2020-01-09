@@ -2,9 +2,9 @@ const radio_checkbox = Vue.extend({
   props: ['data', 'index'],
   template: `
     <div class="question" v-if="display">
-      <div class="d-flex">
-        <p class="required" v-if="data.Required">*</p>
-        <h5 style="margin-bottom: 0;">{{ index + 1 }}. {{ data.Title }} : </h5>
+      <div>
+        <span v-if="data.Required" class="badge badge-danger mr-1">必填</span>
+        <h5 class="d-inline">{{ index + 1 }}. {{ data.Title }} : </h5>
       </div>
       <div class="d-flex align-items-center flex-wrap">
         <div

@@ -11,6 +11,7 @@ Vue.component('render-form', {
   data() {
     return {
       form: {},
+      totalScore: 0,
     };
   },
   template: `
@@ -18,6 +19,9 @@ Vue.component('render-form', {
       <div class="container">
         <div class="row no-gutters">
           <div class="col">
+
+            <h4 v-if="totalScore !== 0" class="text-right">得分：<span class="badge badge-info">{{ totalScore }}</span></h4>
+            
             <div class="title">
               <p>{{ form.Title }}</p>
             </div>
@@ -31,6 +35,7 @@ Vue.component('render-form', {
               :index="index"
               :is="item.Type"
               :id="item.Guid"
+              :ScoreMode="form.ScoreMode"
             ></component>
           </div>
         </div>
@@ -39,7 +44,7 @@ Vue.component('render-form', {
   `,
   watch: {
     form() {
-      /* 隱藏跳題 */
+      // 隱藏跳題
       this.$nextTick(() => {
         this.form.Questions.forEach(Question => {
           if (Question.Type !== 'checkbox') {
@@ -113,11 +118,9 @@ Vue.component('render-form', {
       this.form = obj;
     },
     checkRequired() {
-      /*
-        除了確認該題目是否為必填而且答案是否為空值之外，
-        如果題目是必填但沒有出現在畫面上則忽略該題，
-        沒有出現在畫面上的意思是該題有被綁定但父題選取的選項並沒有選到讓該題顯示的選項。
-      */
+      // 除了確認該題目是否為必填而且答案是否為空值之外，
+      // 如果題目是必填但沒有出現在畫面上則忽略該題，
+      // 沒有出現在畫面上的意思是該題有被綁定但父題選取的選項並沒有選到讓該題顯示的選項。
       const visibleQuesList = this.form.Questions.filter(item => {
         return document.getElementById(item.Guid);
       });
@@ -149,6 +152,24 @@ Vue.component('render-form', {
       const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return reg.test(String(email).toLowerCase());
     },
+    showScore() {
+      if (this.form.ScoreMode) {
+        const res = this.form.Questions.filter(item => {
+          return (
+            item.Type === 'radio' ||
+            item.Type === 'checkbox' ||
+            item.Type === 'dropdown'
+          );
+        });
+
+        res.forEach(item => {
+          this.totalScore += parseInt(item.QuestionScore);
+        });
+      } else {
+        console.error('Jun大發慈悲的告訴你此表單並未開啟計分功能');
+        return false;
+      }
+    },
   },
 });
 
@@ -157,8 +178,9 @@ const vm = new Vue({
 });
 
 window.jun = {
-  getRenderFormJS: vm.$refs.apple.getFormJSON,
-  renderForm: vm.$refs.apple.renderForm,
-  checkRequired: vm.$refs.apple.checkRequired,
-  checkEmail: vm.$refs.apple.checkEmail,
+  getRenderFormJS: vm.$refs.jun.getFormJSON, // 取得當前表單的 JSON 結構
+  renderForm: vm.$refs.jun.renderForm, // 繪製畫面
+  checkRequired: vm.$refs.jun.checkRequired, // 檢查必填欄位
+  checkEmail: vm.$refs.jun.checkEmail, // 檢查信箱格式
+  showScore: vm.$refs.jun.showScore, // 顯示分數
 };
