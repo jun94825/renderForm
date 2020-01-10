@@ -9,7 +9,7 @@ export default Vue.component('literal', {
           <h5 class="d-inline">{{ index + 1 }}. {{ data.Title }} : </h5>
         </div>
         <div class="input literal mt-2 mt-md-0 ml-3 ml-md-2">
-          <input type="text" v-model="data.Answer" placeholder="您的回答" />
+          <input type="text" v-model="data.Answer" disabled placeholder="您的回答" />
           <div class="line"></div>
         </div>
       </div>

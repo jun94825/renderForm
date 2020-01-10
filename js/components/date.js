@@ -9,7 +9,7 @@ export default Vue.component('date', {
           <h5 class="d-inline">{{ index + 1 }}. {{ data.Title }} : </h5>
         </div>
         <div class="mt-2 mt-md-0 ml-3 ml-md-2">
-          <input type="date" class="date form-control" v-model="data.Answer" />
+          <input type="date" class="date form-control" v-model="data.Answer" disabled/>
         </div>
       </div>
     </div>

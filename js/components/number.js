@@ -9,7 +9,7 @@ export default Vue.component('number', {
           <h5 class="d-inline">{{ index + 1 }}. {{ data.Title }} : </h5>
         </div>
         <div class="input literal mt-2 mt-md-0 ml-3 ml-md-2">
-          <input type="number" class="form-control" v-model="data.Answer" />
+          <input type="number" class="form-control" v-model="data.Answer" disabled/>
           <div class="line"></div>
         </div>
       </div>

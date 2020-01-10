@@ -9,7 +9,7 @@ export default Vue.component('english', {
           <h5 class="d-inline">{{ index + 1 }}. {{ data.Title }} : </h5>
         </div>
         <div class="input literal mt-2 mt-md-0 ml-3 ml-md-2">
-          <input type="english" class="mt-1" v-model="data.Answer" placeholder="請輸入英文字母" @change="checkNum" />
+          <input type="english" class="mt-1" v-model="data.Answer" disabled placeholder="請輸入英文字母" @change="checkNum" />
           <div class="line"></div>
         </div>
       </div>
