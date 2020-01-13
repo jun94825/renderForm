@@ -12,6 +12,7 @@ Vue.component('render-form', {
     return {
       form: {},
       totalScore: 0,
+      readOnlyMode: false,
     };
   },
   template: `
@@ -80,6 +81,18 @@ Vue.component('render-form', {
           }
         });
       });
+    },
+    readOnlyMode() {
+      if (this.readOnlyMode) {
+        const domInput = Array.from(document.querySelectorAll('input'));
+        domInput.forEach(item => {
+          item.disabled = true;
+        });
+        const domSelect = Array.from(document.querySelectorAll('select'));
+        domSelect.forEach(item => {
+          item.disabled = true;
+        });
+      }
     },
   },
   methods: {
@@ -170,6 +183,9 @@ Vue.component('render-form', {
         return false;
       }
     },
+    openReadOnlyMode() {
+      this.readOnlyMode = true;
+    },
   },
 });
 
@@ -183,4 +199,5 @@ window.jun = {
   checkRequired: vm.$refs.jun.checkRequired, // 檢查必填欄位
   checkEmail: vm.$refs.jun.checkEmail, // 檢查信箱格式
   showScore: vm.$refs.jun.showScore, // 顯示分數
+  openReadOnlyMode: vm.$refs.jun.openReadOnlyMode, // 開啟唯讀模式
 };

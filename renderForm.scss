@@ -95,8 +95,7 @@ input[type='checkbox'] {
         }
       }
 
-      .literal,
-      .dropdown {
+      .literal {
         height: 30px;
       }
 
@@ -104,6 +103,10 @@ input[type='checkbox'] {
       .literal > input[type='email'],
       .literal > input[type='english'] {
         border-bottom: 1px solid #ccc;
+      }
+
+      .dropdown {
+        width: 150px;
       }
 
       .date {

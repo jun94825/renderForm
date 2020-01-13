@@ -18,7 +18,6 @@ const radio_checkbox = Vue.extend({
             :value="item.Guid"
             v-model="data.Answer"
             @change="checkBinding(data, item)"
-            disabled
           />
           <label :for="item.Guid">{{ item.Value }}</label>
         </div>
