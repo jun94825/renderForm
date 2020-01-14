@@ -8,7 +8,7 @@ export default Vue.component('dropdown', {
           <span v-if="data.Required" class="badge badge-danger mr-1">必填</span>
           <h5 class="d-inline">{{ index + 1 }}. {{ data.Title }} : </h5>
         </div>
-        <select class="dropdown form-control" v-model="data.Answer" @change="hello(data)">
+        <select class="dropdown form-control" v-model="data.Answer">
           <option value="">請選擇</option>
           <option
             v-for="(item, index) in data.Options"
@@ -20,15 +20,5 @@ export default Vue.component('dropdown', {
       </div>
     </div>
   `,
-  methods: {
-    hello(data) {
-      // 比對 Guid 代入分數
-      data.Options.forEach(item => {
-        if (item.Guid === data.Answer) {
-          data.QuestionScore = item.OptionScore;
-        }
-      });
-    },
-  },
   extends: dropdown_literal_date,
 });

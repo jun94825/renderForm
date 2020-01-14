@@ -17,13 +17,6 @@ export default Vue.component('radio', {
   },
   methods: {
     checkBinding(data, item) {
-      // 比對 Guid 代入分數
-      data.Options.forEach(item => {
-        if (item.Guid === data.Answer) {
-          data.QuestionScore = item.OptionScore;
-        }
-      });
-
       // 檢查綁定控制顯示與隱藏
       if (item.Binding.length > 0) {
         item.Binding.forEach(Guid => {

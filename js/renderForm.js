@@ -36,7 +36,7 @@ Vue.component('render-form', {
               :index="index"
               :is="item.Type"
               :id="item.Guid"
-              :ScoreMode="form.ScoreMode"
+              :ScoreEnable="form.ScoreEnable"
             ></component>
           </div>
         </div>
@@ -166,7 +166,7 @@ Vue.component('render-form', {
       return reg.test(String(email).toLowerCase());
     },
     showScore() {
-      if (this.form.ScoreMode) {
+      if (this.form.ScoreEnable) {
         const res = this.form.Questions.filter(item => {
           return (
             item.Type === 'radio' ||
@@ -176,10 +176,24 @@ Vue.component('render-form', {
         });
 
         res.forEach(item => {
-          this.totalScore += parseInt(item.QuestionScore);
+          if (item.Type === 'checkbox') {
+            item.Answer.forEach(a => {
+              item.Options.forEach(b => {
+                if (a === b.Guid) {
+                  this.totalScore += parseInt(b.Score);
+                }
+              });
+            });
+          } else {
+            item.Options.forEach(i => {
+              if (item.Answer === i.Guid) {
+                this.totalScore += parseInt(i.Score);
+              }
+            });
+          }
         });
       } else {
-        console.error('Jun大發慈悲的告訴你此表單並未開啟計分功能');
+        console.error('表單尚未開啟計分功能');
         return false;
       }
     },
@@ -198,6 +212,6 @@ window.jun = {
   renderForm: vm.$refs.jun.renderForm, // 繪製畫面
   checkRequired: vm.$refs.jun.checkRequired, // 檢查必填欄位
   checkEmail: vm.$refs.jun.checkEmail, // 檢查信箱格式
-  showScore: vm.$refs.jun.showScore, // 顯示分數
   openReadOnlyMode: vm.$refs.jun.openReadOnlyMode, // 開啟唯讀模式
+  showScore: vm.$refs.jun.showScore, // 顯示分數
 };
