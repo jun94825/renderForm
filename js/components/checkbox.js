@@ -17,6 +17,10 @@ export default Vue.component('checkbox', {
   },
   methods: {
     checkBinding(data, item) {
+      if (this.ScoreEnable) {
+        this.$emit('show');
+      }
+
       // 檢查綁定控制顯示與隱藏
       if (item.Binding.length > 0) {
         item.Binding.forEach(Guid => {

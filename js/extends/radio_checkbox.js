@@ -1,5 +1,5 @@
 const radio_checkbox = Vue.extend({
-  props: ['data', 'index'],
+  props: ['data', 'index', 'ScoreEnable'],
   template: `
     <div class="question" v-if="display">
       <div>

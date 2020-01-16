@@ -37,6 +37,7 @@ Vue.component('render-form', {
               :is="item.Type"
               :id="item.Guid"
               :ScoreEnable="form.ScoreEnable"
+              @show="showScore"
             ></component>
           </div>
         </div>
@@ -167,6 +168,8 @@ Vue.component('render-form', {
     },
     showScore() {
       if (this.form.ScoreEnable) {
+        this.totalScore = 0;
+
         const res = this.form.Questions.filter(item => {
           return (
             item.Type === 'radio' ||
