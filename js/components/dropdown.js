@@ -22,7 +22,7 @@ export default Vue.component('dropdown', {
   `,
   methods: {
     hello() {
-      if (this.ScoreEnable) {
+      if (this.ScoreEnable && this.pMode) {
         this.$emit('show');
       }
     },

@@ -17,7 +17,7 @@ export default Vue.component('checkbox', {
   },
   methods: {
     checkBinding(data, item) {
-      if (this.ScoreEnable) {
+      if (this.ScoreEnable && this.pMode) {
         this.$emit('show');
       }
 

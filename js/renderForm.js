@@ -13,6 +13,8 @@ Vue.component('render-form', {
       form: {},
       totalScore: 0,
       readOnlyMode: false,
+      // 不重要
+      previewMode: false,
     };
   },
   template: `
@@ -38,6 +40,7 @@ Vue.component('render-form', {
               :id="item.Guid"
               :ScoreEnable="form.ScoreEnable"
               @show="showScore"
+              :pMode="previewMode"
             ></component>
           </div>
         </div>
@@ -203,6 +206,9 @@ Vue.component('render-form', {
     openReadOnlyMode() {
       this.readOnlyMode = true;
     },
+    openPreviewMode() {
+      this.previewMode = true;
+    },
   },
 });
 
@@ -217,4 +223,5 @@ window.jun = {
   checkEmail: vm.$refs.jun.checkEmail, // 檢查信箱格式
   openReadOnlyMode: vm.$refs.jun.openReadOnlyMode, // 開啟唯讀模式
   showScore: vm.$refs.jun.showScore, // 顯示分數
+  openPreviewMode: vm.$refs.jun.openPreviewMode, // 開啟預覽模式，此模式下的計分功能可即時更新
 };

@@ -1,5 +1,5 @@
 const dropdown_literal_date = Vue.extend({
-  props: ['data', 'index', 'ScoreEnable'],
+  props: ['data', 'index', 'ScoreEnable', 'pMode'],
   data() {
     return {
       display: true,
